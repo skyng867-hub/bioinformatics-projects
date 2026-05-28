@@ -7,7 +7,7 @@ handle=Entrez.efetch(db="nucleotide", id="NM_000518", rettype="fasta", retmode="
 record=SeqIO.read(handle, "fasta")
 handle.close()
 
-seq=record.upper()
+seq=record.seq.upper()
 
 positions=[]
 gc_values=[]
@@ -15,7 +15,7 @@ gc_values=[]
 for i in range(20, len(seq)-3):
     pam=seq[i:i+3]
     if pam[1]=="G" and pam[2]=="G":
-        guide=seq[i-20:1]
+        guide=seq[i-20:i]
         gc=gc_fraction(guide)*100
         if 40<=gc<=70:
             positions.append(i)
